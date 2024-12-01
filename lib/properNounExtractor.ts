@@ -1,5 +1,4 @@
-export class ProperNounExtractor {
-  private static readonly systemPrompt = `Extract proper nouns from the text.
+const systemPrompt = `Extract proper nouns from the text.
 Output only proper nouns separated by commas.
 
 Example:
@@ -15,20 +14,37 @@ Output:
 Input: "Using microsoft excel and google sheets for data analysis"
 Output: Microsoft Excel, Google Sheets`
 
-  constructor() {}
+export async function extractProperNouns(
+  description: string
+): Promise<string[]> {
+  if (!description) return []
 
-  async extract(description: string): Promise<string[]> {
-    const session = await window.ai.languageModel.create({
-      systemPrompt: ProperNounExtractor.systemPrompt
-    })
+  const splitDescription = description.split("\n")
+  const properNouns: string[] = []
+  let processedLines = 0
+  const totalLines = splitDescription.length
+
+  const session = await window.ai.languageModel.create({
+    systemPrompt
+  })
+
+  for await (const line of splitDescription) {
     try {
-      const response = await session.prompt(`Input: "${description}"`)
-      return response
+      const response = await session.prompt(`Input: "${line}"`)
+      const lineProperNouns = response
         .split(",")
         .map((item) => item.trim())
         .filter((item) => item.length > 0)
+      properNouns.push(...lineProperNouns)
+
+      processedLines++
+      const percentage = Math.round((processedLines / totalLines) * 100)
+      console.clear()
+      console.log(`Proper nouns extraction progress: ${percentage}%`)
     } catch (e) {
-      return []
+      continue
     }
   }
+
+  return properNouns
 }
