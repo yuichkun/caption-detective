@@ -50,28 +50,43 @@ export async function extractProperNouns(
 
   const uniqueProperNouns = [...new Set(properNouns)]
   console.log("uniqueProperNouns", uniqueProperNouns)
-  const verifiedProperNouns = await verifyProperNoun(
-    uniqueProperNouns.join(", ")
-  )
-  console.log("verifiedProperNouns", verifiedProperNouns)
-  const suspiciousNounList = await checkSuspiciousNoun(
-    verifiedProperNouns.join(", ")
-  )
-  console.log("suspiciousNounList", suspiciousNounList)
+  let verifiedProperNouns: string[] = []
+  try {
+    verifiedProperNouns = await verifyProperNoun(uniqueProperNouns.join(", "))
+    console.log("verifiedProperNouns", verifiedProperNouns)
+  } catch (e) {
+    console.warn("Failed to verify proper nouns")
+    return uniqueProperNouns
+  }
+
+  let suspiciousNounList: string[] = []
+  try {
+    suspiciousNounList = await checkSuspiciousNoun(
+      verifiedProperNouns.join(", ")
+    )
+    console.log("suspiciousNounList", suspiciousNounList)
+  } catch (e) {
+    console.warn("Failed to check suspicious nouns")
+    return verifiedProperNouns
+  }
 
   const domain = await new DomainDetector().detect(description)
   console.log("domain", domain)
   if (!domain) return suspiciousNounList
-  const relatedProperNounList = await Promise.all(
-    suspiciousNounList.map((noun) => brainStormRelatedNoun(noun, domain))
-  )
-  const properNounList = [
-    ...suspiciousNounList,
-    ...relatedProperNounList.flat()
-  ]
-    .map((noun) => noun.replace('"', ""))
-    .map((noun) => noun.replace("'", ""))
-    .map((noun) => noun.replace("`", ""))
+  let relatedProperNounList: string[] = []
+  try {
+    relatedProperNounList = (
+      await Promise.all(
+        suspiciousNounList.map((noun) => brainStormRelatedNoun(noun, domain))
+      )
+    ).flat()
+    console.log("relatedProperNounList", relatedProperNounList)
+  } catch (e) {
+    console.warn("Failed to brain storm related nouns")
+    return suspiciousNounList
+  }
+  const properNounList = [...suspiciousNounList, ...relatedProperNounList]
+    .map((noun) => noun.replaceAll(/['""`]/g, ""))
     .map((noun) => noun.trim())
   const uniqueProperNounList = [...new Set(properNounList)]
   return uniqueProperNounList
