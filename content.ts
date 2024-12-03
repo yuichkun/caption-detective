@@ -1,7 +1,7 @@
 import type { PlasmoCSConfig } from "plasmo"
 
 import { getProperNounExtractorConfig } from "~lib/config"
-import { getVideoDescription, getVideoTitle } from "~lib/getContext"
+import { getVideoDescription } from "~lib/getContext"
 import { extractProperNouns } from "~lib/properNounExtractor"
 import { replaceProperNoun } from "~lib/properNounReplacer"
 
