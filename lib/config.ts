@@ -19,7 +19,7 @@ export async function getProperNounExtractorConfig(): Promise<ProperNounExtracto
     const config = await storage.get("properNounExtractorConfig")
     return {
       ...DEFAULT_CONFIG,
-      ...(config || {})
+      ...(config && typeof config === "object" ? config : {})
     }
   } catch (error) {
     console.error("Failed to load config:", error)
