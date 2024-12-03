@@ -1,23 +1,43 @@
 import { doubleMetaphone } from "double-metaphone"
 
+function metaphoneDistance(
+  [primary1, secondary1]: [string, string],
+  [primary2, secondary2]: [string, string]
+): number {
+  // If primaries match exactly
+  if (primary1 === primary2) {
+    // If both have secondaries, compare them
+    if (secondary1 && secondary2) {
+      // If one secondary is a prefix of the other (like F vs FF)
+      if (
+        secondary2.startsWith(secondary1) ||
+        secondary1.startsWith(secondary2)
+      ) {
+        return 0.1 // Very close match
+      }
+      // Different secondaries
+      return 0.5
+    }
+    // One or both missing secondary, but primary matches
+    return 0.2
+  }
+  // Primaries don't match
+  return 1
+}
+
 export function replaceProperNoun(properNoun: string, text: string): string {
-  // Get double metaphone encoding for the proper noun
-  const [properNounPrimary, properNounSecondary] = doubleMetaphone(
-    properNoun.toLowerCase()
-  )
+  const properNounMetaphones = doubleMetaphone(properNoun.toLowerCase())
 
-  // Use regex to find word boundaries
   return text.replace(/\b\w+\b/g, (word) => {
-    const [wordPrimary, wordSecondary] = doubleMetaphone(word.toLowerCase())
+    const wordMetaphones = doubleMetaphone(word.toLowerCase())
 
-    // Compare phonetic encodings
-    if (
-      wordPrimary === properNounPrimary ||
-      (properNounSecondary && wordSecondary === properNounSecondary)
-    ) {
-      return properNoun // Replace with the correct proper noun
+    const distance = metaphoneDistance(properNounMetaphones, wordMetaphones)
+
+    // Adjust this threshold based on testing
+    if (distance <= 0.2) {
+      return properNoun
     }
 
-    return word // Keep original word
+    return word
   })
 }
