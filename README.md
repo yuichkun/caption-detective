@@ -11,6 +11,12 @@ This extension was developed for the **Google Chrome Built-in AI Challenge**, sh
 - **On-Device AI**: Utilizes Gemini-nano for fast, private corrections without external API calls.
 - **Seamless Integration**: Works directly with YouTube's caption system for a smooth user experience.
 
+## ⚙️ Disclaimer
+
+- Due to the limited capabilities of Gemini-nano, this extension may exhibit flaky behavior and may not always work as intended.
+- The initial intent was to allow the LLM to read entire sentences and replace words as needed. While this approach may work with more advanced models like GPT-4o, current lightweight models such as Gemini-nano often struggle to understand the instructions correctly. As a result, the implementation has been broken down into multiple smaller tasks, such as identifying related topics and words. The actual replacement of words is performed without the assistance of Gemini-nano, which contributes to the inconsistency in performance.
+- Currently, the extension only reads the video title and description. However, when more advanced LLMs become available in Chrome in the future, this extension could potentially learn the context of the video **as it plays**, leading to improved results over time.
+
 ## ⚙️ Configuration
 
 The extension provides a user-friendly settings interface where you can adjust various configuration options for the proper noun extraction process. The available settings include:
