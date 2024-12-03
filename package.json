@@ -1,8 +1,8 @@
 {
-  "name": "context-aware-youtube-caption-enhancer",
-  "displayName": "Context aware youtube caption enhancer",
+  "name": "caption-detective",
+  "displayName": "Caption Detective",
   "version": "0.0.1",
-  "description": "An on-device-llm-powered extension that enhances YouTube captions with video context",
+  "description": "Fixing Misheard Words in YouTube Captions.",
   "author": "Yuichi Yogo",
   "scripts": {
     "dev": "plasmo dev",
