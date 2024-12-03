@@ -4,6 +4,7 @@
   "version": "0.0.1",
   "description": "Fixing Misheard Words in YouTube Captions.",
   "author": "Yuichi Yogo",
+  "license": "MIT",
   "scripts": {
     "dev": "plasmo dev",
     "build": "plasmo build",

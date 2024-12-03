@@ -53,7 +53,7 @@ You can access and modify these settings through both the extension's options pa
 
 ### Pre-built Version
 
-1. **Download the Latest Release** from the [GitHub Releases page](https://github.com/yourusername/caption-detective/releases).
+1. **Download the Latest Release** from the [GitHub Releases page](https://github.com/yuichkun/caption-detective/releases).
 2. **Unzip the Downloaded File**.
 3. **Follow Step 4** from the Local Development section above to load the extension.
 
@@ -77,17 +77,13 @@ npm run build
 ```
 This bundle is ready to be zipped and published to the stores.
 
-## 🌐 Submit to the Webstores
-
-The easiest way to deploy your Plasmo extension is to use the built-in [bpp](https://bpp.browser.market) GitHub action. Before using this action, ensure you build your extension and upload the first version to the store to establish basic credentials. Follow [this setup instruction](https://docs.plasmo.com/framework/workflows/submit) for automated submission!
-
 ## 🤝 Contributing
 
 Contributions are welcome! Feel free to submit a Pull Request.
 
 ## 📜 License
 
-[Add your license here]
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ## 🙏 Acknowledgments
 
