@@ -114,8 +114,8 @@ const checkSuspiciousNounPrompt = `Your task is to pick out the nouns that may n
 Output only the nouns that may not be transcribed correctly separated by commas.
 
 Example:
-Input: "Vue, Apple, London, Michael Jackson"
-Output: "Vue"`
+Input: "Svelte, Apple, London, Michael Jackson, YOGO"
+Output: "Svelte, YOGO"`
 async function checkSuspiciousNoun(nounList: string) {
   const session = await window.ai.languageModel.create({
     systemPrompt: checkSuspiciousNounPrompt
