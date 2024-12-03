@@ -1,5 +1,6 @@
 import type { PlasmoCSConfig } from "plasmo"
 
+import { getProperNounExtractorConfig } from "~lib/config"
 import { getVideoDescription, getVideoTitle } from "~lib/getContext"
 import { extractProperNouns } from "~lib/properNounExtractor"
 import { replaceProperNoun } from "~lib/properNounReplacer"
@@ -14,6 +15,8 @@ async function main() {
   const description = getVideoDescription()
   if (!description) return
 
+  const config = await getProperNounExtractorConfig()
+  console.log("config", config)
   const properNouns = await extractProperNouns(description)
   console.log("extracted proper nouns", properNouns)
   updateCaptions(properNouns)

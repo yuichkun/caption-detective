@@ -1,3 +1,7 @@
+import {
+  getProperNounExtractorConfig,
+  type ProperNounExtractorConfig
+} from "./config"
 import { DomainDetector } from "./domainDetector"
 
 const systemPrompt = `Extract proper nouns from the text.
@@ -20,6 +24,8 @@ export async function extractProperNouns(
   description: string
 ): Promise<string[]> {
   if (!description) return []
+
+  const config = await getProperNounExtractorConfig()
 
   const splitDescription = description.split("\n")
   const properNouns: string[] = []
@@ -50,6 +56,11 @@ export async function extractProperNouns(
 
   const uniqueProperNouns = [...new Set(properNouns)]
   console.log("uniqueProperNouns", uniqueProperNouns)
+
+  if (!config.verifyProperNouns) {
+    return uniqueProperNouns
+  }
+
   let verifiedProperNouns: string[] = []
   try {
     verifiedProperNouns = await verifyProperNoun(uniqueProperNouns.join(", "))
@@ -57,6 +68,10 @@ export async function extractProperNouns(
   } catch (e) {
     console.warn("Failed to verify proper nouns")
     return uniqueProperNouns
+  }
+
+  if (!config.checkSuspiciousNouns) {
+    return verifiedProperNouns
   }
 
   let suspiciousNounList: string[] = []
@@ -70,9 +85,14 @@ export async function extractProperNouns(
     return verifiedProperNouns
   }
 
+  if (!config.brainstormRelatedWords) {
+    return suspiciousNounList
+  }
+
   const domain = await new DomainDetector().detect(description)
   console.log("domain", domain)
   if (!domain) return suspiciousNounList
+
   let relatedProperNounList: string[] = []
   try {
     relatedProperNounList = (
@@ -85,6 +105,7 @@ export async function extractProperNouns(
     console.warn("Failed to brain storm related nouns")
     return suspiciousNounList
   }
+
   const properNounList = [...suspiciousNounList, ...relatedProperNounList]
     .map((noun) => noun.replaceAll(/['""`]/g, ""))
     .map((noun) => noun.trim())
