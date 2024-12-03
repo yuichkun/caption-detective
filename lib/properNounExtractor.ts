@@ -21,13 +21,14 @@ Input: "Using microsoft excel and google sheets for data analysis"
 Output: Microsoft Excel, Google Sheets`
 
 export async function extractProperNouns(
+  title: string,
   description: string
 ): Promise<string[]> {
   if (!description) return []
 
   const config = await getProperNounExtractorConfig()
 
-  const splitDescription = description.split("\n")
+  const splitDescription = [title, ...description.split("\n")]
   const properNouns: string[] = []
   let processedLines = 0
   const totalLines = splitDescription.length
@@ -47,7 +48,6 @@ export async function extractProperNouns(
 
       processedLines++
       const percentage = Math.round((processedLines / totalLines) * 100)
-      console.clear()
       console.log(`Proper nouns extraction progress: ${percentage}%`)
     } catch (e) {
       continue
