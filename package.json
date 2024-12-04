@@ -8,7 +8,8 @@
   "scripts": {
     "dev": "plasmo dev",
     "build": "plasmo build",
-    "package": "plasmo package"
+    "package": "plasmo package",
+    "test": "vitest"
   },
   "dependencies": {
     "@plasmohq/storage": "1.13.0",
@@ -23,8 +24,10 @@
     "@types/node": "20.11.5",
     "@types/react": "18.2.48",
     "@types/react-dom": "18.2.18",
+    "@vitest/coverage-c8": "0.33.0",
     "prettier": "3.2.4",
-    "typescript": "5.3.3"
+    "typescript": "5.3.3",
+    "vitest": "2.1.8"
   },
   "manifest": {
     "host_permissions": [
