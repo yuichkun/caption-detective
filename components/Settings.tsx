@@ -48,6 +48,16 @@ export function Settings() {
         <span>Brainstorm related words</span>
       </label>
 
+      <label className="flex items-center space-x-2">
+        <input
+          type="checkbox"
+          checked={config.includeVideoDescription}
+          onChange={() => handleConfigChange("includeVideoDescription")}
+          className="form-checkbox"
+        />
+        <span>Include video description</span>
+      </label>
+
       <div className="mt-4 text-sm text-gray-600">
         <p>
           These settings control how the proper noun extraction process works:
@@ -64,6 +74,10 @@ export function Settings() {
           <li>
             <strong>Brainstorm related words:</strong> Generate additional
             related proper nouns based on context
+          </li>
+          <li>
+            <strong>Include video description:</strong> Include the video
+            description in the extraction process
           </li>
         </ul>
       </div>

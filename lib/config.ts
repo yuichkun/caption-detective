@@ -4,12 +4,14 @@ export interface ProperNounExtractorConfig {
   verifyProperNouns: boolean
   checkSuspiciousNouns: boolean
   brainstormRelatedWords: boolean
+  includeVideoDescription: boolean
 }
 
 export const DEFAULT_CONFIG: ProperNounExtractorConfig = {
   verifyProperNouns: true,
   checkSuspiciousNouns: true,
-  brainstormRelatedWords: true
+  brainstormRelatedWords: true,
+  includeVideoDescription: false
 }
 
 const storage = new Storage()

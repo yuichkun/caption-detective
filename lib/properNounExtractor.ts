@@ -28,7 +28,12 @@ export async function extractProperNouns(
 
   const config = await getProperNounExtractorConfig()
 
-  const splitDescription = [title, ...description.split("\n")]
+  const splitDescription = [
+    title,
+    ...(config.includeVideoDescription && description
+      ? [description.split("\n")]
+      : [])
+  ]
   const properNouns: string[] = []
   let processedLines = 0
   const totalLines = splitDescription.length
