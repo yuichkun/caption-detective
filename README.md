@@ -1,7 +1,7 @@
-# 🔥 Caption Detective 🔥
+# 🎩 Caption Detective
 
 ![Screenshot](./docs/screenshot.gif)
-**Caption Detective** is a Chrome extension that helps fix misheard proper nouns in YouTube captions using on-device AI (Gemini-nano). For instance, it corrects common mishearings like "view js" to "Vue.js" in real-time, ensuring a smoother viewing experience.
+**Caption Detective** is an experimental Chrome extension that helps fix misheard proper nouns in YouTube captions using on-device AI (Gemini-nano). For instance, it corrects common mishearings like "view js" to "Vue.js" in real-time, ensuring a smoother viewing experience.
 
 This extension was developed for the **Google Chrome Built-in AI Challenge**, showcasing the capabilities of on-device LLMs through Chrome's Prompt API. You can learn more about the challenge [here](https://googlechromeai.devpost.com/?linkId=11071015).
 
