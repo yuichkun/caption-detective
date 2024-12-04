@@ -5,6 +5,10 @@
   "description": "Fixing Misheard Words in YouTube Captions.",
   "author": "Yuichi Yogo",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yuichkun/caption-detective"
+  },
   "scripts": {
     "dev": "plasmo dev",
     "build": "plasmo build",
